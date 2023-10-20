@@ -18,7 +18,7 @@ namespace ProjektKCK
             string menuTitle = UI.MenuTitle("Main Menu");
             string menuOption1 = UI.MenuOption(0, "Create Character");
             string menuOption2 = UI.MenuOption(-1, "Exit");
-
+            Console.Clear();
             StringBuilder sb = new StringBuilder();
             sb.Append(' ', UI.CalcPosition(menuTitle));
             sb.Append(menuTitle);
