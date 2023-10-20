@@ -9,7 +9,18 @@ namespace ProjektKCK{
     {
         public State_Game(Stack<State> states) : base(states)
         {
-            Console.WriteLine("Dziala game state");
+            
+        }
+        override public void Update()
+        {
+            Console.WriteLine("test");
+            int numer = Convert.ToInt32(Console.ReadLine());
+
+
+            if (numer < 0)
+            {
+                this.chekcer = true;
+            }
         }
     }
 }

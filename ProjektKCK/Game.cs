@@ -28,18 +28,23 @@ namespace ProjektKCK
             this.states.Push(new State_Menu(this.states));
         }
 
+  
         public Game() 
         {
             this.initVar();
             this.InitStates();
-            Console.WriteLine("Witaj");
         }
 
         public void Run()
         {
-            while (this.checker == false)
+            Thread.Sleep(2000);
+            Console.Clear();
+            while (this.states.Count() > 0)
             {
+                    this.states.Peek().Update();
 
+                    if(this.states.Peek().checkerReturn())
+                        this.states.Pop();
             }
 
             Console.WriteLine("Ending game...");
