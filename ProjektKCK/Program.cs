@@ -4,7 +4,7 @@ using menu;
 using ProjektKCK;
 using System.Runtime.InteropServices;
 
-namespace ProjektPO
+namespace ProjektKCK
 {
 
     public class Program
