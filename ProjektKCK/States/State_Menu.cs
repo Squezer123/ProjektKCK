@@ -23,6 +23,7 @@ namespace ProjektKCK
                            
 ";
         public StringBuilder sb = new StringBuilder();
+        public int height;
         public State_Menu(Stack<State> states) : base(states)
         {
 
@@ -37,7 +38,7 @@ namespace ProjektKCK
                 sb.Append(' ', UI.CalcPosition(menuOption2));
                 sb.Append(menuOption2);
             }
-            UI.CenterAsci(asci);
+            height = UI.CenterAsci(asci);
             Console.WriteLine(sb);
             menuChecker = 1;
         }
@@ -63,20 +64,22 @@ namespace ProjektKCK
 
         }
 
+
         public void ChangeOption(int option)
         {
             switch (option)
             {
                 case 0:
-                    MovingOption(31, 29);
-                    MovingOption(29, 31);
+                    MovingOption(height + 2, height);
+                    MovingOption(height, height+2);
                     break;
                 case 1:
-                    MovingOption(29, 31);
-                    MovingOption(31, 29);
+                    MovingOption(height, height + 2);
+                    MovingOption(height + 2, height);
                     break;
             }
         }
+
 
         override public void Update()
         {
@@ -104,6 +107,14 @@ namespace ProjektKCK
 
 
             if (indeks == 0) {
+                string firstmessage = "You wake up in a room illuminated only by few torches...";
+                Console.Clear();
+                Console.ForegroundColor = ConsoleColor.Red;
+                UI.GameIntro();
+                Console.Clear();
+                Console.ForegroundColor = ConsoleColor.White;
+                UI.CenterAsci(firstmessage);
+                Thread.Sleep(2000);
                 this.states.Push(new State_Game(this.states));
             }
             if (indeks == 1)

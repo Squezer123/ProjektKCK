@@ -19,7 +19,7 @@ namespace ProjektKCK
             return option;
         }
 
-        public static void CenterAsci(String asciiArt) {
+        public static int CenterAsci(String asciiArt) {
             int windowWidth = Console.WindowWidth;
             int windowHeight = Console.WindowHeight;
 
@@ -36,6 +36,7 @@ namespace ProjektKCK
                 Console.WriteLine(line);
                 centerY++;
             }
+            return centerY;
         }
 
         public static String MenuOption(String option)

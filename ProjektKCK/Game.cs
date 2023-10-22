@@ -16,6 +16,7 @@ namespace ProjektKCK
         }        
 
         private Stack<State> states;
+        private Stack<State> gameStates;
         private void initVar()
         {
             this.checker = false;
@@ -24,6 +25,7 @@ namespace ProjektKCK
         private void InitStates() 
         {
             this.states = new Stack<State>();
+            this.gameStates = new Stack<State>();
         }
 
   
