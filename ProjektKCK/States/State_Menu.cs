@@ -1,40 +1,112 @@
 ﻿using System;
+using static System.Console;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.VisualBasic;
 
 namespace ProjektKCK
 {
     class State_Menu : State
     {
-        public State_Menu(Stack<State> states) : base(states) 
+        private int indeks;
+        private int menuChecker = 0;
+        private string menuOption1 = UI.MenuOption("Play");
+        private string menuOption2 = UI.MenuOption("Exit");
+        public string asci = @"█▀▄▀█ ▄███▄      ▄     ▄   
+█ █ █ █▀   ▀      █     █  
+█ ▄ █ ██▄▄    ██   █ █   █ 
+█   █ █▄   ▄▀ █ █  █ █   █ 
+   █  ▀███▀   █  █ █ █▄ ▄█ 
+  ▀           █   ██  ▀▀▀  
+                           
+";
+        public StringBuilder sb = new StringBuilder();
+        public State_Menu(Stack<State> states) : base(states)
         {
 
         }
 
+        public void CreateMenu()
+        {
+            if (menuChecker == 0) {
+                sb.Append(' ', UI.CalcPosition(menuOption1));
+                sb.Append(menuOption1);
+                sb.AppendLine();
+                sb.Append(' ', UI.CalcPosition(menuOption2));
+                sb.Append(menuOption2);
+            }
+            UI.CenterAsci(asci);
+            Console.WriteLine(sb);
+            menuChecker = 1;
+        }
+
+        public void MovingOption(int line, int line2)
+        {
+            int consoleWidth;
+            int position;
+            consoleWidth = Console.WindowWidth;
+            position = (consoleWidth - menuOption1.Length - 7) / 2;
+            Console.SetCursorPosition(position, line);
+            Console.Write("<<");
+            position = (consoleWidth + menuOption1.Length + 2) / 2;
+            Console.SetCursorPosition(position, line);
+            Console.Write(">>");
+            consoleWidth = Console.WindowWidth;
+            position = (consoleWidth - menuOption1.Length - 7) / 2;
+            Console.SetCursorPosition(position, line2);
+            Console.Write("  ");
+            position = (consoleWidth + menuOption1.Length + 2) / 2;
+            Console.SetCursorPosition(position, line2);
+            Console.Write("  ");
+
+        }
+
+        public void ChangeOption(int option)
+        {
+            switch (option)
+            {
+                case 0:
+                    MovingOption(31, 29);
+                    MovingOption(29, 31);
+                    break;
+                case 1:
+                    MovingOption(29, 31);
+                    MovingOption(31, 29);
+                    break;
+            }
+        }
+
         override public void Update()
         {
-            string menuTitle = UI.MenuTitle("Main Menu");
-            string menuOption1 = UI.MenuOption(0, "Create Character");
-            string menuOption2 = UI.MenuOption(-1, "Exit");
+            
             Console.Clear();
-            StringBuilder sb = new StringBuilder();
-            sb.Append(' ', UI.CalcPosition(menuTitle));
-            sb.Append(menuTitle);
-            sb.AppendLine();
-            sb.Append(' ', UI.CalcPosition(menuOption1));
-            sb.Append(menuOption1);
-            sb.AppendLine();
-            sb.Append(' ', UI.CalcPosition(menuOption2));
-            sb.Append(menuOption2);
-            Console.WriteLine(sb);
-            int numer = Convert.ToInt32(Console.ReadLine());
+            CreateMenu();
+            ChangeOption(0);
+            ConsoleKey keyPressed;
+            do
+            {
+                ConsoleKeyInfo przyciskinfo = ReadKey(true);
+                keyPressed = przyciskinfo.Key;
+                if (keyPressed == ConsoleKey.UpArrow)
+                {
+                    indeks = 0;
+                    ChangeOption(indeks);
 
-            if (numer == 0) {
-                this.states.Push(new State_Game(this.states)); ;
+                }
+                else if (keyPressed == ConsoleKey.DownArrow)
+                {
+                    indeks = 1;
+                    ChangeOption(indeks);
+                }
+            } while (keyPressed != ConsoleKey.Enter);
+
+
+            if (indeks == 0) {
+                this.states.Push(new State_Game(this.states));
             }
-            if (numer == 1)
+            if (indeks == 1)
             {
                 this.chekcer = true;
             }

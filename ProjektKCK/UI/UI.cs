@@ -16,16 +16,87 @@ namespace ProjektKCK
 
         public static String MenuTitle(String option)
         {
-            option = String.Format(" === {0}\n", option);
+            return option;
+        }
+
+        public static void CenterAsci(String asciiArt) {
+            int windowWidth = Console.WindowWidth;
+            int windowHeight = Console.WindowHeight;
+
+            string[] lines = asciiArt.Split('\n');
+            int artWidth = lines[0].Length;
+            int artHeight = lines.Length;
+
+            int centerX = (windowWidth - artWidth) / 2;
+            int centerY = (windowHeight - artHeight) / 2;
+
+            foreach (string line in lines)
+            {
+                Console.SetCursorPosition(centerX, centerY);
+                Console.WriteLine(line);
+                centerY++;
+            }
+        }
+
+        public static String MenuOption(String option)
+        {
+            option = String.Format("({0})\n", option);
 
             return option;
         }
 
-        public static String MenuOption(int nr, String option)
+        public static void GameIntro()
         {
-            option = String.Format(" - ({0}) {1} :\n", nr, option);
-
-            return option;
+            string face = @"  █████▒▄▄▄       ▄████▄  ▓█████    ▄▄▄█████▓ ██░ ██ ▓█████ 
+▓██   ▒▒████▄    ▒██▀ ▀█  ▓█   ▀    ▓  ██▒ ▓▒▓██░ ██▒▓█   ▀ 
+▒████ ░▒██  ▀█▄  ▒▓█    ▄ ▒███      ▒ ▓██░ ▒░▒██▀▀██░▒███   
+░▓█▒  ░░██▄▄▄▄██ ▒▓▓▄ ▄██▒▒▓█  ▄    ░ ▓██▓ ░ ░▓█ ░██ ▒▓█  ▄ 
+░▒█░    ▓█   ▓██▒▒ ▓███▀ ░░▒████▒     ▒██▒ ░ ░▓█▒░██▓░▒████▒
+ ▒ ░    ▒▒   ▓▒█░░ ░▒ ▒  ░░░ ▒░ ░     ▒ ░░    ▒ ░░▒░▒░░ ▒░ ░
+ ░       ▒   ▒▒ ░  ░  ▒    ░ ░  ░       ░     ▒ ░▒░ ░ ░ ░  ░
+ ░ ░     ░   ▒   ░           ░        ░       ░  ░░ ░   ░   
+             ░  ░░ ░         ░  ░             ░  ░  ░   ░  ░
+                 ░                                          
+";
+            string con = @" ▄████████  ▄██████▄  ███▄▄▄▄      ▄████████    ▄████████ ████████▄   ███    █▄     ▄████████ ███▄▄▄▄    ▄████████    ▄████████    ▄████████ 
+███    ███ ███    ███ ███▀▀▀██▄   ███    ███   ███    ███ ███    ███  ███    ███   ███    ███ ███▀▀▀██▄ ███    ███   ███    ███   ███    ███ 
+███    █▀  ███    ███ ███   ███   ███    █▀    ███    █▀  ███    ███  ███    ███   ███    █▀  ███   ███ ███    █▀    ███    █▀    ███    █▀  
+███        ███    ███ ███   ███   ███         ▄███▄▄▄     ███    ███  ███    ███  ▄███▄▄▄     ███   ███ ███         ▄███▄▄▄       ███        
+███        ███    ███ ███   ███ ▀███████████ ▀▀███▀▀▀     ███    ███  ███    ███ ▀▀███▀▀▀     ███   ███ ███        ▀▀███▀▀▀     ▀███████████ 
+███    █▄  ███    ███ ███   ███          ███   ███    █▄  ███    ███  ███    ███   ███    █▄  ███   ███ ███    █▄    ███    █▄           ███ 
+███    ███ ███    ███ ███   ███    ▄█    ███   ███    ███ ███  ▀ ███  ███    ███   ███    ███ ███   ███ ███    ███   ███    ███    ▄█    ███ 
+████████▀   ▀██████▀   ▀█   █▀   ▄████████▀    ██████████  ▀██████▀▄█ ████████▀    ██████████  ▀█   █▀  ████████▀    ██████████  ▄████████▀  
+                                                                                                                                             
+";
+            string pentagram = @"            ..---n---..
+         .--""""' / \   '""""--.
+      .""        |   |        "".
+    .""          |   |          "".
+   /           /     \           \
+  /           |       |           \
+ .------------+-------+------------.
+.'`--.       /         \       .--' .
+:     "".    |           |    .""     ;
+|       ""-. |           | .-""       |
+|          )-.         .-(          |
+""         |   "".     .""   |         ""
+ \       /      ""-.-""      \       /
+ "".     |      .-' '-.      |     .""
+  \     |    .""       "".    |     /
+   \   /  .-""           ""-.  \   /
+    "".|.-""                 ""-.|.""
+      "".                     .""
+        ""--..           ..--""
+            '""""-------""""'";
+            CenterAsci(face);
+            Thread.Sleep(1000);
+            Console.Clear();
+            CenterAsci(con);
+            Thread.Sleep(1500);
+            Console.Clear();
+            CenterAsci(pentagram);
+            Thread.Sleep(50);
+            Console.Clear();
         }
 
         public static int CalcPosition(string txt)

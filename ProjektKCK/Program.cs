@@ -1,10 +1,9 @@
 ﻿using System;
 using static System.Console;
-using menu;
 using ProjektKCK;
 using System.Runtime.InteropServices;
 
-namespace ProjektPO
+namespace ProjektKCK
 {
 
     public class Program
@@ -17,7 +16,7 @@ namespace ProjektPO
 
 
         public const int SW_SHOWMAXIMIZED = 3;
-        static void Main(string[] args)
+        static void Main(string[] args)     
         {
             Console.BufferHeight = Console.WindowHeight;
             IntPtr consoleHandle = GetConsoleWindow();
@@ -25,8 +24,9 @@ namespace ProjektPO
             {
                 ShowWindow(consoleHandle, SW_SHOWMAXIMIZED);
             }
-            Console.ForegroundColor = ConsoleColor.Red;
+            Console.ForegroundColor = ConsoleColor.DarkRed;
             Console.CursorVisible = false;
+            
             string asciiArt = @"   ▄████████  ▄██████▄     ▄████████    ▄██████▄   ▄██████▄      ███         ███        ▄████████ ███▄▄▄▄   
   ███    ███ ███    ███   ███    ███   ███    ███ ███    ███ ▀█████████▄ ▀█████████▄   ███    ███ ███▀▀▀██▄ 
   ███    █▀  ███    ███   ███    ███   ███    █▀  ███    ███    ▀███▀▀██    ▀███▀▀██   ███    █▀  ███   ███ 
@@ -37,23 +37,9 @@ namespace ProjektPO
   ███         ▀██████▀    ███    ███   ████████▀   ▀██████▀     ▄████▀      ▄████▀     ██████████  ▀█   █▀  
                           ███    ███                                                                        
 ";
-
-            int windowWidth = Console.WindowWidth;
-            int windowHeight = Console.WindowHeight;
-
-            string[] lines = asciiArt.Split('\n');
-            int artWidth = lines[0].Length;
-            int artHeight = lines.Length;
-
-            int centerX = (windowWidth - artWidth) / 2;
-            int centerY = (windowHeight - artHeight) / 2;
-
-            foreach (string line in lines)
-            {
-                Console.SetCursorPosition(centerX, centerY);
-                Console.WriteLine(line);
-                centerY++;
-            }
+            UI.CenterAsci(asciiArt);
+            
+            Console.ForegroundColor = ConsoleColor.White;
             Game game = new Game();
             game.Run();
 

@@ -9,7 +9,6 @@ namespace ProjektKCK
     class Game
     {
         private bool checker;
-
        public bool Checker
         {
             get { return this.checker; }
@@ -25,7 +24,6 @@ namespace ProjektKCK
         private void InitStates() 
         {
             this.states = new Stack<State>();
-            this.states.Push(new State_Menu(this.states));
         }
 
   
@@ -37,17 +35,19 @@ namespace ProjektKCK
 
         public void Run()
         {
-            Thread.Sleep(2000);
+            Thread.Sleep(2500);
             Console.Clear();
+            this.states.Push(new State_Menu(this.states));
+
             while (this.states.Count() > 0)
             {
                     this.states.Peek().Update();
-
-                    if(this.states.Peek().checkerReturn())
-                        this.states.Pop();
+                if (this.states.Peek().checkerReturn())
+                {
+                    this.states.Pop();
+                }
+                        
             }
-
-            Console.WriteLine("Ending game...");
         }
     }
 }
