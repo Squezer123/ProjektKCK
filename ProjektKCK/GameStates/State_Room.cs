@@ -19,9 +19,9 @@ namespace ProjektKCK
         }
         private int indeks;
         public static int height;
-        public static string option1;
-        public static string option2;
-        public static string option3;
+        public static string option1, option2, option3, option4;
+        
+        
         public static void Options()
         {
             Console.Clear();
@@ -40,7 +40,7 @@ namespace ProjektKCK
             option1 = "MOVE";
             option2 = "SEARCH";
             option3 = "MAP";
-            option3 = "EXIT";
+            option4 = "EXIT";
             sbO.Append(' ', UI.CalcPosition(option1));
                 sbO.Append(option1);
                 sbO.AppendLine();
@@ -49,6 +49,9 @@ namespace ProjektKCK
                 sbO.AppendLine();
                 sbO.Append(' ', UI.CalcPosition(option3));
                 sbO.Append(option3);
+                sbO.AppendLine();
+                sbO.Append(' ', UI.CalcPosition(option4));
+                sbO.Append(option4);
                 sbO.AppendLine();
             Console.ForegroundColor = ConsoleColor.Red;
             height = UI.CenterAsci(asciOpt);
@@ -110,7 +113,7 @@ namespace ProjektKCK
                 keyPressed = przyciskinfo.Key;
                 if (keyPressed == ConsoleKey.UpArrow)
                 {
-                    if(indeks >=0)
+                    if(indeks >0)
                     indeks--;
                     ChangeOption(indeks);
 
