@@ -88,6 +88,8 @@ namespace ProjektKCK
             CreateMenu();
             ChangeOption(0);
             ConsoleKey keyPressed;
+            if (this.states.Peek().ToString() == "ProjektKCK.State_Menu")
+            {
             do
             {
                 ConsoleKeyInfo przyciskinfo = ReadKey(true);
@@ -103,23 +105,22 @@ namespace ProjektKCK
                     indeks = 1;
                     ChangeOption(indeks);
                 }
+                    Thread.Sleep(200);
             } while (keyPressed != ConsoleKey.Enter);
 
 
             if (indeks == 0) {
-                string firstmessage = "You wake up in a room illuminated only by few torches...";
-                Console.Clear();
-                Console.ForegroundColor = ConsoleColor.Red;
-                UI.GameIntro();
-                Console.Clear();
-                Console.ForegroundColor = ConsoleColor.White;
-                UI.CenterAsci(firstmessage);
-                Thread.Sleep(2000);
-                this.states.Push(new State_Game(this.states));
+
+                if(this.states.Peek().ToString() == "ProjektKCK.State_Menu")
+                {
+                    this.states.Push(new State_Game(this.states));
+                }
+
             }
             if (indeks == 1)
             {
                 this.chekcer = true;
+            }
             }
         }
     }

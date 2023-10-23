@@ -9,7 +9,7 @@ namespace ProjektKCK
     class State
     {
         public Stack<State> states;
-        public Stack<State> gameStates;
+
         public bool chekcer = false;
         public bool gameChecker = false;
 

@@ -17,16 +17,12 @@ namespace ProjektKCK{
         }
         protected int[,] GlobalDungeon { get; set; }
         protected int[,] GlobalMap = new int[4, 4];
-        private void InitStates()
-        {
-            this.gameStates = new Stack<State>();
-        }
-        
+        public bool stateVar;
+           
         
 
         override public void Update()
         {
-            this.InitStates();
 
             for (int k = 0; k < 4; k++)
             {
@@ -36,19 +32,19 @@ namespace ProjektKCK{
                 }
                 Console.WriteLine();
             }
-
+       
             Map.CreateStartPoint(GlobalMap);
+            string firstmessage = "You wake up in a room illuminated only by few torches...";
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.Red;
+            UI.GameIntro();
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.White;
+            UI.CenterAsci(firstmessage);
+            Thread.Sleep(2000);
+            Console.Clear();
+            this.states.Push(new State_Room(this.states));
 
-            this.gameStates.Push(new State_Room(this.gameStates));
-
-                while (this.gameStates.Count() > 0)
-                {
-                    this.gameStates.Peek().Update();
-                    if (this.gameStates.Peek().checkerReturn())
-                    {
-                        this.gameStates.Pop();
-                    }
-                }
             this.chekcer = true;
         }
  

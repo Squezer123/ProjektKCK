@@ -13,19 +13,28 @@ namespace ProjektKCK
         {
             get { return this.checker; }
             set { this.checker = value; }
-        }        
+        }
+
+        private bool stateVariable;
+        public bool stateBoolVariable
+        {
+            get { return this.stateVariable; }
+            set { this.stateVariable = value; }
+        }
+
+
 
         private Stack<State> states;
         private Stack<State> gameStates;
         private void initVar()
         {
             this.checker = false;
+            this.stateVariable= false;
         }
 
         private void InitStates() 
         {
             this.states = new Stack<State>();
-            this.gameStates = new Stack<State>();
         }
 
   
