@@ -16,24 +16,12 @@ namespace ProjektKCK{
 
         }
         protected int[,] GlobalDungeon { get; set; }
-        protected int[,] GlobalMap = new int[4, 4];
         public bool stateVar;
            
         
 
         override public void Update()
         {
-
-            for (int k = 0; k < 4; k++)
-            {
-                for (int l = 0; l < 4; l++)
-                {
-                    GlobalMap[k, l] = 2;
-                }
-                Console.WriteLine();
-            }
-       
-            Map.CreateStartPoint(GlobalMap);
             string firstmessage = "You wake up in a room illuminated only by few torches...";
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.Red;
