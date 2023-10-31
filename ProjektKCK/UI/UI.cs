@@ -106,5 +106,17 @@ namespace ProjektKCK
             int leftPadding = (totalWidth - txt.Length) / 2;
             return leftPadding;
         }
+        public static void DisplayMenu(List<string> options)
+        {
+            StringBuilder sbO = new StringBuilder();
+            foreach (string option in options)
+            {
+                sbO.Append(' ', UI.CalcPosition(option));
+                sbO.Append(option);
+                sbO.AppendLine();
+            }
+            
+            Console.WriteLine(sbO);
+        }
     }
 }

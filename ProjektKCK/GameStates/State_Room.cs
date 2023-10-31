@@ -17,25 +17,13 @@ namespace ProjektKCK
         {
 
         }
+        private int start = 0;
         private int indeks;
         private int[] currentPosition = new int[2];
         private int direction;
         public static int height;
-        protected int[,] GlobalMap = new int[4, 4]
-        {
-            {0,0,1,2},
-            {0,2,2,0 },
-            {2,2,0,0 },
-            {0,2,2,0 }
-        };
-        public static string option1, option2, option3, option4;
-        
-        
-        public static void Options(string option1, string option2, string option3, string option4)
-        {
-            Console.Clear();
-            StringBuilder sbO = new StringBuilder();
-            string asciOpt = @" ▄▄▄       ▄████▄  ▄▄▄█████▓ ██▓ ██▒   █▓ ██▓▄▄▄█████▓ ██▓▓█████   ██████ 
+        List<string> options = new List<string>();
+        public string asciOpt = @" ▄▄▄       ▄████▄  ▄▄▄█████▓ ██▓ ██▒   █▓ ██▓▄▄▄█████▓ ██▓▓█████   ██████ 
 ▒████▄    ▒██▀ ▀█  ▓  ██▒ ▓▒▓██▒▓██░   █▒▓██▒▓  ██▒ ▓▒▓██▒▓█   ▀ ▒██    ▒ 
 ▒██  ▀█▄  ▒▓█    ▄ ▒ ▓██░ ▒░▒██▒ ▓██  █▒░▒██▒▒ ▓██░ ▒░▒██▒▒███   ░ ▓██▄   
 ░██▄▄▄▄██ ▒▓▓▄ ▄██▒░ ▓██▓ ░ ░██░  ▒██ █░░░██░░ ▓██▓ ░ ░██░▒▓█  ▄   ▒   ██▒
@@ -46,40 +34,42 @@ namespace ProjektKCK
       ░  ░░ ░                ░        ░   ░            ░     ░  ░      ░  
           ░                          ░                                    
 ";
-            sbO.Append(' ', UI.CalcPosition(option1));
-                sbO.Append(option1);
-                sbO.AppendLine();
-                sbO.Append(' ', UI.CalcPosition(option2));
-                sbO.Append(option2);
-                sbO.AppendLine();
-                sbO.Append(' ', UI.CalcPosition(option3));
-                sbO.Append(option3);
-                sbO.AppendLine();
-                sbO.Append(' ', UI.CalcPosition(option4));
-                sbO.Append(option4);
-                sbO.AppendLine();
-            Console.ForegroundColor = ConsoleColor.Red;
-            height = UI.CenterAsci(asciOpt);
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine(sbO);
-            
-        }
+        public string directions = @"▓█████▄  ██▓ ██▀███  ▓█████  ▄████▄  ▄▄▄█████▓ ██▓ ▒█████   ███▄    █   ██████ 
+▒██▀ ██▌▓██▒▓██ ▒ ██▒▓█   ▀ ▒██▀ ▀█  ▓  ██▒ ▓▒▓██▒▒██▒  ██▒ ██ ▀█   █ ▒██    ▒ 
+░██   █▌▒██▒▓██ ░▄█ ▒▒███   ▒▓█    ▄ ▒ ▓██░ ▒░▒██▒▒██░  ██▒▓██  ▀█ ██▒░ ▓██▄   
+░▓█▄   ▌░██░▒██▀▀█▄  ▒▓█  ▄ ▒▓▓▄ ▄██▒░ ▓██▓ ░ ░██░▒██   ██░▓██▒  ▐▌██▒  ▒   ██▒
+░▒████▓ ░██░░██▓ ▒██▒░▒████▒▒ ▓███▀ ░  ▒██▒ ░ ░██░░ ████▓▒░▒██░   ▓██░▒██████▒▒
+ ▒▒▓  ▒ ░▓  ░ ▒▓ ░▒▓░░░ ▒░ ░░ ░▒ ▒  ░  ▒ ░░   ░▓  ░ ▒░▒░▒░ ░ ▒░   ▒ ▒ ▒ ▒▓▒ ▒ ░
+ ░ ▒  ▒  ▒ ░  ░▒ ░ ▒░ ░ ░  ░  ░  ▒       ░     ▒ ░  ░ ▒ ▒░ ░ ░░   ░ ▒░░ ░▒  ░ ░
+ ░ ░  ░  ▒ ░  ░░   ░    ░   ░          ░       ▒ ░░ ░ ░ ▒     ░   ░ ░ ░  ░  ░  
+   ░     ░     ░        ░  ░░ ░                ░      ░ ░           ░       ░  
+ ░                          ░                                                  
+";
+        protected int[,] GlobalMap = new int[4, 4]
+        {
+            {0,0,1,1},
+            {0,1,1,0 },
+            {1,1,0,0 },
+            {0,1,1,0 }
+        };
+
         public void MovingOption(int line, int line2)
         {
             int consoleWidth;
             int position;
+            int item_witdh = options.First().Length;
             consoleWidth = Console.WindowWidth;
-            position = (consoleWidth - option1.Length - 7) / 2;
+            position = (consoleWidth - item_witdh - 7) / 2;
             Console.SetCursorPosition(position, line);
             Console.Write("<<");
-            position = (consoleWidth + option1.Length + 2) / 2;
+            position = (consoleWidth + item_witdh + 2) / 2;
             Console.SetCursorPosition(position, line);
             Console.Write(">>");
             consoleWidth = Console.WindowWidth;
-            position = (consoleWidth - option1.Length - 7) / 2;
+            position = (consoleWidth - item_witdh - 7) / 2;
             Console.SetCursorPosition(position, line2);
             Console.Write("  ");
-            position = (consoleWidth + option1.Length + 2) / 2;
+            position = (consoleWidth + item_witdh + 2) / 2;
             Console.SetCursorPosition(position, line2);
             Console.Write("  ");
 
@@ -115,13 +105,22 @@ namespace ProjektKCK
 
         override public void Update()
         {
-            currentPosition = Map.CreateStartPoint(GlobalDungeon);
-            option1 = "MOVE";
-            option2 = "SEARCH";
-            option3 = "MAP";
-            option4 = "EXIT";
-            
-            Options(option1, option2, option3, option4);
+            Console.Clear();
+            if (start == 0)
+            {
+                currentPosition = Map.CreateStartPoint(GlobalMap);
+                GlobalMap[currentPosition[0], currentPosition[1]] = 3;
+            }
+            start = 1;
+            options.Clear();
+            options.Add("Move");
+            options.Add("Search");
+            options.Add("Map");
+            options.Add("Exit");
+            Console.ForegroundColor = ConsoleColor.Red;
+            height = UI.CenterAsci(asciOpt);
+            Console.ForegroundColor = ConsoleColor.White;
+            UI.DisplayMenu(options);
             ChangeOption(0);
             ConsoleKey keyPressed;
             do
@@ -146,41 +145,56 @@ namespace ProjektKCK
             switch (indeks)
             {
                 case 0:
+                    
+                    Console.Clear();
+                    options.Clear();
+                    options = Map.MoveOptions(GlobalMap, currentPosition);
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    height = UI.CenterAsci(asciOpt);
+                    UI.DisplayMenu(options);
+                    int max_index = options.Count();
+                    ChangeOption(0);
+                    string currentOption = options[0];
+                    do
+                    {
+                        ConsoleKeyInfo przyciskinfo = ReadKey(true);
+                        keyPressed = przyciskinfo.Key;
+                        if (keyPressed == ConsoleKey.UpArrow)
+                        {
+                            if (indeks > 0)
+                            {
+                                indeks--;
+                                currentOption = options[indeks];
+                            }
+                            ChangeOption(indeks);
+
+                        }
+                        else if (keyPressed == ConsoleKey.DownArrow)
+                        {
+                            if (indeks < options.Count()-1)
+                            {
+                                indeks++;
+                                currentOption = options[indeks];
+                            }
+                                
+                            ChangeOption(indeks);
+                        }
+                    } while (keyPressed != ConsoleKey.Enter);
+                    GlobalMap[currentPosition[0], currentPosition[1]] = 1;
+                    currentPosition = Map.changePosition(currentOption, currentPosition);
+                    GlobalMap[currentPosition[0], currentPosition[1]] = 3;
                     indeks = 0;
+
                     break;
                 case 1:
                     indeks = 0;
+                    
+
                     break;
                 case 2:
                     Console.Clear();
                     indeks = 0;
-                    string map = "";
-                    string room;
-                    
-                    for(int i = 0;i<4;i++)
-                    {
-                        for (int j = 0; j < 4; j++)
-                        {
-                            if (GlobalMap[i,j] == 2)
-                            {
-                                room = " [?]";
-                                map = map + room;
-                            }
-                            else if (GlobalMap[i,j] == 1)
-                            {
-                                room = " [ ]";
-                                map = map + room;
-                            }
-                            else if (GlobalMap[i, j] == 0)
-                            {
-                                room = "    ";
-                                map = map + room;
-                            }
-                        }
-                        map = map + '\n';
-                    }
-
-                    UI.CenterAsci(map);
+                    Map.DisplayMap(GlobalMap);
                     do
                     {
                         ConsoleKeyInfo przyciskinfo = ReadKey(true);
