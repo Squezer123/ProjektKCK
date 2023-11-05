@@ -48,6 +48,8 @@ namespace ProjektKCK
             return startPointCoordinates;
         }
 
+
+
         public static void DisplayMap(int[,] GlobalMap)
         {
             string map = "";
@@ -57,7 +59,7 @@ namespace ProjektKCK
             {
                 for (int j = 0; j < 4; j++)
                 {
-                    if (GlobalMap[i, j] == 2)
+                    if (GlobalMap[i, j] == 2 || GlobalMap[i,j] == 20)
                     {
                         room = " [?]";
                         map = map + room;
@@ -77,12 +79,23 @@ namespace ProjektKCK
                         room = " [X]";
                         map = map + room;
                     }
+                    else if (GlobalMap[i, j] == 10)
+                    {
+                        room = " [E]";
+                        map = map + room;
+                    }
+                    else if (GlobalMap[i, j] == 5)
+                    {
+                        room = " [?]";
+                        map = map + room;
+                    }
                 }
                 map = map + '\n';
             }
 
             UI.CenterAsci(map);
         }
+
         public static List<string> MoveOptions(int[,] dungeon, int[] position)
         {
             List<string> options = new List<string>();
@@ -92,22 +105,22 @@ namespace ProjektKCK
             int numRows = dungeon.GetLength(0);
             int numCols = dungeon.GetLength(1);
 
-            if (x > 0 && dungeon[x - 1, y] == 1)
+            if (x > 0 && dungeon[x - 1, y] != 0)
             {
                 option = "UP";
                 options.Add(option);
             }
-            if (x < numRows - 1 && dungeon[x + 1, y] == 1)
+            if (x < numRows - 1 && dungeon[x + 1, y] != 0)
             {
                 option = "DOWN";
                 options.Add(option);
             }
-            if (y > 0 && dungeon[x, y - 1] == 1)
+            if (y > 0 && dungeon[x, y - 1] != 0)
             {
                 option = "LEFT";
                 options.Add(option);
             }
-            if (y < numCols - 1 && dungeon[x, y + 1] == 1)
+            if (y < numCols - 1 && dungeon[x, y + 1] != 0)
             {
                 option = "RIGHT";
                 options.Add(option);
@@ -118,7 +131,7 @@ namespace ProjektKCK
         public static int[] changePosition(string direction, int[] newPostition)
         {
             if (direction == "UP")
-                newPostition[0]++;
+                newPostition[0]--;
             if (direction == "DOWN")
                 newPostition[0]++;
             if (direction == "LEFT")
